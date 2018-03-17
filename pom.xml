@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.skyisbule.jxwebsite</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>skyisbule</groupId>
+	<artifactId>jxwebsite</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<name>jx</name>
 	<packaging>jar</packaging>
 
-	<name>jxwebsite</name>
-	<description>my association website</description>
-
+	<!-- Spring Boot 启动父依赖 -->
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.0.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>1.5.1.RELEASE</version>
 	</parent>
 
 	<properties>
+		<mybatis-spring-boot>1.2.0</mybatis-spring-boot>
+		<mysql-connector>5.1.39</mysql-connector>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
 	</properties>
+
+	<repositories>
+		<repository>
+			<id>spring-milestone</id>
+			<url>http://repo.spring.io/libs-release</url>
+		</repository>
+	</repositories>
+
 
 	<dependencies>
 
@@ -83,6 +91,5 @@
 			</plugin>
 		</plugins>
 	</build>
-
-
 </project>
+

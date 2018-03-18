@@ -28,11 +28,11 @@ public class LoginController {
                         @Param("passwd")String passwd,
                         HttpServletResponse response){
         UserExample e = new UserExample();
-        e.createCriteria()
-                .andNickNameEqualTo("user");
+        e.createCriteria().
+                andNickNameEqualTo(user);
         List<User> users = userDao.selectByExample(e);
         //没有该用户
-        if (user.length()==0)
+        if (users.size()==0)
             return "noThisUser";
         //核对一下密码
         if (users.get(0).getPasswd().equals(passwd)){

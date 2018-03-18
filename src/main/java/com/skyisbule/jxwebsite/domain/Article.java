@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * @author 
  */
-public class Notice implements Serializable {
+public class Article implements Serializable {
     private Integer id;
 
     private String title;
@@ -19,6 +19,10 @@ public class Notice implements Serializable {
     private Date releaseTime;
 
     private String author;
+
+    private Integer authorId;
+
+    private String articleType;
 
     private static final long serialVersionUID = 1L;
 
@@ -62,6 +66,22 @@ public class Notice implements Serializable {
         this.author = author;
     }
 
+    public Integer getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
+    }
+
+    public String getArticleType() {
+        return articleType;
+    }
+
+    public void setArticleType(String articleType) {
+        this.articleType = articleType;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -73,12 +93,14 @@ public class Notice implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Notice other = (Notice) that;
+        Article other = (Article) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
             && (this.getReleaseTime() == null ? other.getReleaseTime() == null : this.getReleaseTime().equals(other.getReleaseTime()))
-            && (this.getAuthor() == null ? other.getAuthor() == null : this.getAuthor().equals(other.getAuthor()));
+            && (this.getAuthor() == null ? other.getAuthor() == null : this.getAuthor().equals(other.getAuthor()))
+            && (this.getAuthorId() == null ? other.getAuthorId() == null : this.getAuthorId().equals(other.getAuthorId()))
+            && (this.getArticleType() == null ? other.getArticleType() == null : this.getArticleType().equals(other.getArticleType()));
     }
 
     @Override
@@ -90,6 +112,8 @@ public class Notice implements Serializable {
         result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
         result = prime * result + ((getReleaseTime() == null) ? 0 : getReleaseTime().hashCode());
         result = prime * result + ((getAuthor() == null) ? 0 : getAuthor().hashCode());
+        result = prime * result + ((getAuthorId() == null) ? 0 : getAuthorId().hashCode());
+        result = prime * result + ((getArticleType() == null) ? 0 : getArticleType().hashCode());
         return result;
     }
 
@@ -104,6 +128,8 @@ public class Notice implements Serializable {
         sb.append(", content=").append(content);
         sb.append(", releaseTime=").append(releaseTime);
         sb.append(", author=").append(author);
+        sb.append(", authorId=").append(authorId);
+        sb.append(", articleType=").append(articleType);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

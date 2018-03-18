@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.skyisbule.jxwebsite.dao.NoticeMapper">
-  <resultMap id="BaseResultMap" type="com.skyisbule.jxwebsite.domain.Notice">
+<mapper namespace="com.skyisbule.jxwebsite.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.skyisbule.jxwebsite.domain.Article">
     <id column="Id" jdbcType="INTEGER" property="id" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="release_time" jdbcType="TIMESTAMP" property="releaseTime" />
     <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="author_id" jdbcType="INTEGER" property="authorId" />
+    <result column="article_type" jdbcType="VARCHAR" property="articleType" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,15 +69,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    Id, title, content, release_time, author
+    Id, title, content, release_time, author, author_id, article_type
   </sql>
-  <select id="selectByExample" parameterType="com.skyisbule.jxwebsite.domain.NoticeExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.skyisbule.jxwebsite.domain.ArticleExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from notice
+    from article
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -94,33 +96,35 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from notice
+    from article
     where Id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from notice
+    delete from article
     where Id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.skyisbule.jxwebsite.domain.NoticeExample">
-    delete from notice
+  <delete id="deleteByExample" parameterType="com.skyisbule.jxwebsite.domain.ArticleExample">
+    delete from article
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.skyisbule.jxwebsite.domain.Notice">
+  <insert id="insert" parameterType="com.skyisbule.jxwebsite.domain.Article">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into notice (title, content, release_time, 
-      author)
+    insert into article (title, content, release_time, 
+      author, author_id, article_type
+      )
     values (#{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{releaseTime,jdbcType=TIMESTAMP}, 
-      #{author,jdbcType=VARCHAR})
+      #{author,jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER}, #{articleType,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.skyisbule.jxwebsite.domain.Notice">
+  <insert id="insertSelective" parameterType="com.skyisbule.jxwebsite.domain.Article">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into notice
+    insert into article
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="title != null">
         title,
@@ -133,6 +137,12 @@
       </if>
       <if test="author != null">
         author,
+      </if>
+      <if test="authorId != null">
+        author_id,
+      </if>
+      <if test="articleType != null">
+        article_type,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -148,16 +158,22 @@
       <if test="author != null">
         #{author,jdbcType=VARCHAR},
       </if>
+      <if test="authorId != null">
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="articleType != null">
+        #{articleType,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.skyisbule.jxwebsite.domain.NoticeExample" resultType="java.lang.Long">
-    select count(*) from notice
+  <select id="countByExample" parameterType="com.skyisbule.jxwebsite.domain.ArticleExample" resultType="java.lang.Long">
+    select count(*) from article
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update notice
+    update article
     <set>
       <if test="record.id != null">
         Id = #{record.id,jdbcType=INTEGER},
@@ -174,24 +190,32 @@
       <if test="record.author != null">
         author = #{record.author,jdbcType=VARCHAR},
       </if>
+      <if test="record.authorId != null">
+        author_id = #{record.authorId,jdbcType=INTEGER},
+      </if>
+      <if test="record.articleType != null">
+        article_type = #{record.articleType,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update notice
+    update article
     set Id = #{record.id,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
       content = #{record.content,jdbcType=VARCHAR},
       release_time = #{record.releaseTime,jdbcType=TIMESTAMP},
-      author = #{record.author,jdbcType=VARCHAR}
+      author = #{record.author,jdbcType=VARCHAR},
+      author_id = #{record.authorId,jdbcType=INTEGER},
+      article_type = #{record.articleType,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.skyisbule.jxwebsite.domain.Notice">
-    update notice
+  <update id="updateByPrimaryKeySelective" parameterType="com.skyisbule.jxwebsite.domain.Article">
+    update article
     <set>
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
@@ -205,15 +229,23 @@
       <if test="author != null">
         author = #{author,jdbcType=VARCHAR},
       </if>
+      <if test="authorId != null">
+        author_id = #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="articleType != null">
+        article_type = #{articleType,jdbcType=VARCHAR},
+      </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.skyisbule.jxwebsite.domain.Notice">
-    update notice
+  <update id="updateByPrimaryKey" parameterType="com.skyisbule.jxwebsite.domain.Article">
+    update article
     set title = #{title,jdbcType=VARCHAR},
       content = #{content,jdbcType=VARCHAR},
       release_time = #{releaseTime,jdbcType=TIMESTAMP},
-      author = #{author,jdbcType=VARCHAR}
+      author = #{author,jdbcType=VARCHAR},
+      author_id = #{authorId,jdbcType=INTEGER},
+      article_type = #{articleType,jdbcType=VARCHAR}
     where Id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

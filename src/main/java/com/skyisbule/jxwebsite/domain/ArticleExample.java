@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class NoticeExample {
+public class ArticleExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -15,7 +15,7 @@ public class NoticeExample {
 
     private Integer offset;
 
-    public NoticeExample() {
+    public ArticleExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -452,6 +452,136 @@ public class NoticeExample {
 
         public Criteria andAuthorNotBetween(String value1, String value2) {
             addCriterion("author not between", value1, value2, "author");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdIsNull() {
+            addCriterion("author_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdIsNotNull() {
+            addCriterion("author_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdEqualTo(Integer value) {
+            addCriterion("author_id =", value, "authorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdNotEqualTo(Integer value) {
+            addCriterion("author_id <>", value, "authorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdGreaterThan(Integer value) {
+            addCriterion("author_id >", value, "authorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("author_id >=", value, "authorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdLessThan(Integer value) {
+            addCriterion("author_id <", value, "authorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdLessThanOrEqualTo(Integer value) {
+            addCriterion("author_id <=", value, "authorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdIn(List<Integer> values) {
+            addCriterion("author_id in", values, "authorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdNotIn(List<Integer> values) {
+            addCriterion("author_id not in", values, "authorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdBetween(Integer value1, Integer value2) {
+            addCriterion("author_id between", value1, value2, "authorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andAuthorIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("author_id not between", value1, value2, "authorId");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeIsNull() {
+            addCriterion("article_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeIsNotNull() {
+            addCriterion("article_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeEqualTo(String value) {
+            addCriterion("article_type =", value, "articleType");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeNotEqualTo(String value) {
+            addCriterion("article_type <>", value, "articleType");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeGreaterThan(String value) {
+            addCriterion("article_type >", value, "articleType");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("article_type >=", value, "articleType");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeLessThan(String value) {
+            addCriterion("article_type <", value, "articleType");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeLessThanOrEqualTo(String value) {
+            addCriterion("article_type <=", value, "articleType");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeLike(String value) {
+            addCriterion("article_type like", value, "articleType");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeNotLike(String value) {
+            addCriterion("article_type not like", value, "articleType");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeIn(List<String> values) {
+            addCriterion("article_type in", values, "articleType");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeNotIn(List<String> values) {
+            addCriterion("article_type not in", values, "articleType");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeBetween(String value1, String value2) {
+            addCriterion("article_type between", value1, value2, "articleType");
+            return (Criteria) this;
+        }
+
+        public Criteria andArticleTypeNotBetween(String value1, String value2) {
+            addCriterion("article_type not between", value1, value2, "articleType");
             return (Criteria) this;
         }
     }

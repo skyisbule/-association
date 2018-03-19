@@ -32,4 +32,9 @@ public class view {
         return "editor";
     }
 
+    @RequestMapping("/admin/datalist")
+    public String adminDatalist(){
+        return "admin_datalist";
+    }
+
 }

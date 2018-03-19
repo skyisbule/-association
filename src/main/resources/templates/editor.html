@@ -6,6 +6,7 @@
     <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
+    <p>请输入标题：<input id="art_title" type="text"/></p>
     <div id="editor">
         <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
     </div>
@@ -23,16 +24,18 @@
         function submits() {
             var userId  = getCookie("id");
             var content = editor.txt.html();
+            var in_title = $("#art_title").val();
 
+        /*
         if (userId == "") {
             alert("null id");
             return;
         }
-
+        */
       
         $.post("http://127.0.0.1:89/api/article/add-article",{
-                title       : 'Fred',
-                content     : 'Flintstone',
+                title       : in_title,
+                content     : content,
                 author      : 'sky',
                 authorId    : userId,
                 articleType : '0'

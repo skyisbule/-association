@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>wangEditor demo</title>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+    <div id="editor">
+        <p>欢迎使用 <b>wangEditor</b> 富文本编辑器</p>
+    </div>
+    <button onclick="submits()">ok</button>
+
+    <script type="text/javascript" src="http://unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+    <script type="text/javascript">
+        var E = window.wangEditor
+        var editor = new E('#editor')
+        // 或者 var editor = new E( document.getElementById('editor') )
+        editor.create()
+    </script>
+
+    <script>
+        function submits() {
+            var userId  = getCookie("id");
+            var content = editor.txt.html();
+
+        if (userId == "") {
+            alert("null id");
+            return;
+        }
+
+      
+        $.post("http://127.0.0.1:89/api/article/add-article",{
+                title       : 'Fred',
+                content     : 'Flintstone',
+                author      : 'sky',
+                authorId    : userId,
+                articleType : '0'
+        },
+        (res,state)=>{
+            console.log(res);
+        });
+    }
+
+    function getCookie(c_name){
+        if (document.cookie.length>0){
+            c_start=document.cookie.indexOf(c_name + "=")
+        if (c_start!=-1){ 
+            c_start=c_start + c_name.length+1 
+            c_end=document.cookie.indexOf(";",c_start)
+           if (c_end==-1) c_end=document.cookie.length
+         return unescape(document.cookie.substring(c_start,c_end))
+         } 
+     }
+    return ""
+}
+
+    </script>
+
+</body>
+</html>

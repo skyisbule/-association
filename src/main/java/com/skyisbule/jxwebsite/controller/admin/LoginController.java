@@ -6,8 +6,10 @@ import com.skyisbule.jxwebsite.domain.User;
 import com.skyisbule.jxwebsite.domain.UserExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.Cookie;
@@ -17,7 +19,7 @@ import java.util.List;
 /**
  * Created by skyisbule on 2018/3/18.
  */
-@RestController
+@Controller
 public class LoginController {
 
     @Autowired
@@ -40,12 +42,13 @@ public class LoginController {
             Cookie passwdCookie = new Cookie("session",getHash(users.get(0).getPasswd()));
             response.addCookie(idCookie);
             response.addCookie(passwdCookie);
-            return "success";
+            return "redirect:/admin/main";
 
         }
             return "wrongPassword";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/register",method = RequestMethod.POST)
     public String register(User user){
         if (userDao.insert(user)==1){

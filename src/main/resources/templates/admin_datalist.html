@@ -1,13 +1,13 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml">
+﻿<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <title>数据列表页面</title>
     <!-- layui.css -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.14/dist/vue.js"></script>
-
-
+    <script src="/js/getCookie.js"></script>
     <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js">
     </script>
+
 
     <link href="/admin/plugin/layui/css/layui.css" rel="stylesheet" />
     <style>
@@ -118,7 +118,7 @@
                     <th>标题</th>
                     <th>作者</th>
                     <th>类别</th>
-                    <th colspan="2">选项</th>
+                    <th colspan="2">公告|内部文章</th>
                     <th colspan="2">操作</th>
                 </tr>
                 </thead>
@@ -132,14 +132,14 @@
                     <td>
                         <form class="layui-form" action="">
                             <div class="layui-form-item" style="margin:0;">
-                                <input type="checkbox" name="top" title="置顶" lay-filter="top" checked>
+                                <input type="checkbox" lay-skin="switch" id="notice" name="top" title="公告" lay-filter="noticeing" lay-text="发布|不发" checked>
                             </div>
                         </form>
                     </td>
                     <td>
                         <form class="layui-form" action="">
                             <div class="layui-form-item" style="margin:0;">
-                                <input type="checkbox" name="top" title="推荐" lay-filter="recommend" checked>
+                                <input type="checkbox" lay-skin="switch" value="0" name="top" title="内部" lay-filter="recommend" lay-text="外部|内部" >
                             </div>
                         </form>
                     </td>
@@ -166,6 +166,18 @@
     layui.config({
         base: '/admin/js/'
     }).use('datalist');
+
+    layui.use('form',function () {
+        var form = layui.form();
+
+        form.on('switch(noticeing)',function (datas) {
+            alert(datas.elem.checked)
+        })
+
+    })
+
+
+
 </script>
 
 <script type="text/javascript">
@@ -180,12 +192,16 @@
         methods: {
             getContentData: function () {
                 $.post("/api/article/get-article-by-uid", {
-                        uid: '1'
+                        uid: getCookie("id")
                     },
                     function (datas, status) {
                         for (data of datas) {
+                            //过滤时间，将时间戳转为正确的时间。
                             data.releaseTime = contentAPP.$options.compute.timestampToTime(data.releaseTime)
+                            //获取文章的类型
                             data.articleType = contentAPP.$options.methods.getArticleType(data.articleType)
+                            //判断文章类型
+                            data['isChecked'] = 'checked';
                         }
                         contentAPP.items = datas;
                     });

@@ -33,8 +33,10 @@ public class articleController {
     @RequestMapping("/get-article-by-uid")
     public List<Article> getArtByid(int uid){
         ArticleExample e = new ArticleExample();
+        e.setOrderByClause("release_time desc");
         e.createCriteria()
-                .andAuthorIdEqualTo(uid);
+                .andAuthorIdEqualTo(uid)
+        ;
         return articleDao.selectByExample(e);
     }
 

@@ -116,7 +116,7 @@
     insert into article (title, content, release_time, 
       author, author_id, article_type
       )
-    values (#{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{releaseTime,jdbcType=TIMESTAMP}, 
+    values (#{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{releaseTime,jdbcType=TIMESTAMP},
       #{author,jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER}, #{articleType,jdbcType=VARCHAR}
       )
   </insert>

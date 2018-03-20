@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-for="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.14/dist/vue.js"></script>
+    <script src="/js/getCookie.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+<div id="content">
+    <div v-for = "user in usersData">
+        <p>{{user.id}}|{{user.nickName}}|{{user.realName}}|{{user.sex}}|{{user.wechat}}|{{user.years}}</p>
+    </div>
+</div>
+</body>
+<script>
+    var app = new Vue({
+        el:"#content",
+        data:{
+            usersData:[
+
+            ]
+        },
+        methods:{
+            getAlluser:function () {
+                $.get("/api/user/get-all",function (datas,status) {
+                    app.usersData = datas;
+                })
+            }
+        }
+    })
+
+    app.getAlluser();
+</script>
+</html>

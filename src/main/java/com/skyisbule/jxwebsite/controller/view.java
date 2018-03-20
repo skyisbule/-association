@@ -37,4 +37,12 @@ public class view {
         return "admin_datalist";
     }
 
+    @RequestMapping("/admin/user_manage")
+    public String userManage(){return "admin_user_manage";}
+
+    @RequestMapping("/admin/add_user")
+    public String addUser(){return "admin_add_user";}
+
+    @RequestMapping("/admin/set_user")
+    public String setUsder(){return "admin_set_user";}
 }

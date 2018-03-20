@@ -1,4 +1,5 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+﻿<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+      xmlns:v-html="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
     <title>数据列表页面</title>
@@ -104,16 +105,16 @@
             <table style="" class="layui-table" lay-even="">
                 <colgroup>
                     <col width="180">
-                    <col>
-                    <col width="150">
-                    <col width="180">
-                    <col width="90">
-                    <col width="90">
+                    <col width="320">
+                    <col width="480">
+                    <col width="120">
+                    <col width="10">
                     <col width="50">
                     <col width="50">
                 </colgroup>
                 <thead>
                 <tr>
+                    <th>id</th>
                     <th>发表时间</th>
                     <th>标题</th>
                     <th>作者</th>
@@ -125,14 +126,15 @@
                 <tbody id="all-contents">
 
                 <tr v-for = "item in items">
+                    <td class="art_id">{{ item.id }}</td>
                     <td>{{ item.releaseTime }}</td>
                     <td>{{ item.title }}</td>
                     <td>{{ item.author }}</td>
                     <td>{{ item.articleType}}</td>
                     <td>
                         <form class="layui-form" action="">
-                            <div class="layui-form-item" style="margin:0;">
-                                <input type="checkbox" lay-skin="switch" id="notice" name="top" title="公告" lay-filter="noticeing" lay-text="发布|不发" checked>
+                            <div class="layui-form-item" style="margin:0;" target="notices">
+                                <input type="checkbox" lay-skin="switch" id="notice" name="top" title="公告" lay-filter="noticeing" lay-text="发布|不发" checked></input>
                             </div>
                         </form>
                     </td>
@@ -147,7 +149,7 @@
                         <button class="layui-btn layui-btn-small layui-btn-normal"><i class="layui-icon">&#xe642;</i></button>
                     </td>
                     <td>
-                        <button class="layui-btn layui-btn-small layui-btn-danger"><i class="layui-icon">&#xe640;</i></button>
+                        <button @Click="doDelete(item)" class="layui-btn layui-btn-small layui-btn-danger"><i class="layui-icon">&#xe640;</i></button>
                     </td>
                 </tr>
 
@@ -188,6 +190,7 @@
             items: [
                 {title:"1"}
             ]
+            
         },
         methods: {
             getContentData: function () {
@@ -201,7 +204,7 @@
                             //获取文章的类型
                             data.articleType = contentAPP.$options.methods.getArticleType(data.articleType)
                             //判断文章类型
-                            data['isChecked'] = 'checked';
+
                         }
                         contentAPP.items = datas;
                     });
@@ -215,6 +218,9 @@
                     default:
                         return "未知的文章类型";
                 }
+            },
+            doDelete : function (item) {
+                alert(item.id)
             }
         },
         compute:{
@@ -235,6 +241,19 @@
 
 </script>
 
+<script>
+    //处理文章的类型开关
+    $(document).ready(function () {
+         alert($("div[target='notices']")
+            .parent()
+                .parent()
+                .parent()
+                .find("*")
+                .text()
+            )
+    })
+
+</script>
 
 </body>
 </html>

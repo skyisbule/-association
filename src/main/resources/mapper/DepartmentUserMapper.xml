@@ -3,7 +3,7 @@
 <mapper namespace="com.skyisbule.jxwebsite.dao.DepartmentUserMapper">
   <resultMap id="BaseResultMap" type="com.skyisbule.jxwebsite.domain.DepartmentUser">
     <result column="bm_id" jdbcType="INTEGER" property="bmId" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="works" jdbcType="VARCHAR" property="works" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -98,7 +98,7 @@
   <insert id="insert" parameterType="com.skyisbule.jxwebsite.domain.DepartmentUser">
     insert into department_user (bm_id, user_id, works
       )
-    values (#{bmId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{works,jdbcType=VARCHAR}
+    values (#{bmId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{works,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.skyisbule.jxwebsite.domain.DepartmentUser">
@@ -119,7 +119,7 @@
         #{bmId,jdbcType=INTEGER},
       </if>
       <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="works != null">
         #{works,jdbcType=VARCHAR},
@@ -139,7 +139,7 @@
         bm_id = #{record.bmId,jdbcType=INTEGER},
       </if>
       <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=VARCHAR},
+        user_id = #{record.userId,jdbcType=INTEGER},
       </if>
       <if test="record.works != null">
         works = #{record.works,jdbcType=VARCHAR},
@@ -152,7 +152,7 @@
   <update id="updateByExample" parameterType="map">
     update department_user
     set bm_id = #{record.bmId,jdbcType=INTEGER},
-      user_id = #{record.userId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=INTEGER},
       works = #{record.works,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />

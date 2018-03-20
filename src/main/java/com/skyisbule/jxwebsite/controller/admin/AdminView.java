@@ -1,4 +1,4 @@
-package com.skyisbule.jxwebsite.controller;
+package com.skyisbule.jxwebsite.controller.admin;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 视图控制器
  */
 @Controller
-public class view {
+public class AdminView {
 
     @RequestMapping(value = "/login",method = RequestMethod.GET)
     public String login(){

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>公告 - 计算机协会 - 中山大学南方学院</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/iconfont/iconfont.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.14/dist/vue.js"></script>
+    <script src="/js/getCookie.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body data-spy="scroll" data-target="#site-nav">
+    <nav id="site-nav" class="navbar navbar-fixed-top navbar-custom navbar-solid">
+        <div class="container">
+            <div class="navbar-header">
+
+                <!-- logo -->
+                <div class="site-branding">
+                    <a class="logo" href="index.html">
+                        
+                        <!-- logo image  -->
+                        <img src="/assets/images/logo.png" alt="Logo">
+                        计算机协会 2018
+                    </a>
+                </div>
+
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-items" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div><!-- /.navbar-header -->
+
+            <div class="collapse navbar-collapse" id="navbar-items">
+                <ul class="nav navbar-nav navbar-right">
+
+                    <!-- navigation menu -->
+                    <li><a href="/">关于协会</a></li>
+                    <li><a href="/group.html">部门组织架构</a></li>
+                    <li><a href="/photo.html">协会图库</a></li>
+                    <li><a href="/history_activity.html">历届事件</a></li>
+                    <li><a href="/history_member.html">历任成员</a></li>
+                    <li class="active"><a href="/download.html">资源下载</a></li>
+
+                </ul>
+            </div>
+        </div><!-- /.container -->
+    </nav>
+
+    <section id="about" class="section about">
+        <!--这个div是最上边的 /关于协会/公告/标题和发布时间-->
+        <div class="container" id="content">
+            <div class="nav breadcrumb">
+                <a href="/">关于协会</a> / <a href="/news.html">公告</a> /
+                <a href="">{{article.title}}</a>
+            </div>
+            <div class="row">
+
+                <div class="col-sm-12">
+
+                    <h3 class="section-title multiple-title">{{article.title}}</h3>
+                    <p><small>作者：{{article.author}}<br>发布时间：{{article.releaseTime}}</small></p>
+                    <span v-html="article.content"></span>
+
+                </div><!-- /.col-sm-6 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </section>
+
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="site-info">&copy 2018 计算机协会 v1.0.0 | 技术支持：<a href="#" title="计算机协会">计算机协会</a> & <a href="void(0)" title="hqt" target="_blank">hqt</a></p>
+                    <ul class="social-block">
+                        <li><a href=""><i class="iconfont icon-wechat"></i></a></li>
+                        <li><a href=""><i class="iconfont icon-3"></i></a></li>
+                        <li><a href=""><i class="iconfont icon-weibo"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- script -->
+    <script>
+        function getUrlQuery(name) {
+            var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg); //匹配目标参数
+            if (r!=null) return unescape(r[2]);
+            return null; //返回参数值
+        }
+        function timestampToTime(timestamp){
+            var date = new Date(timestamp);
+            Y = date.getFullYear() + '-';
+            M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            D = date.getDate() + ' ';
+            h = date.getHours() + ':';
+            m = date.getMinutes() + ':';
+            s = date.getSeconds();
+            return Y+M+D+h+m+s;
+        }
+    </script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/smooth-scroll/dist/js/smooth-scroll.min.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script>
+        var app = new Vue({
+            el : "#content",
+            data : {
+                article :{
+
+                }
+            },
+            methods : {
+                getArticle : ()=>{
+                    var artId = getUrlQuery("id")
+                    $.post("/front/article/getNewsById",{
+                        id : artId
+                    },(res)=>{
+                        res.releaseTime = timestampToTime(res.releaseTime)
+                        app.article = res ;
+                    })
+                }
+            }
+        })
+        app.getArticle();
+    </script>
+
+</body>
+</html>

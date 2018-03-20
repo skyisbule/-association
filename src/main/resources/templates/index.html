@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="/bower_components/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/assets/iconfont/iconfont.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.14/dist/vue.js"></script>
+    <script src="/js/getCookie.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body data-spy="scroll" data-target="#site-nav">
     <nav id="site-nav" class="navbar navbar-fixed-top navbar-custom">
@@ -118,14 +121,12 @@
 
                     <p>这里是我们协会最新的动态资讯和活动公告.</p>
 
-                    <ul class="list-arrow-right">
+                    <ul class="list-arrow-right" id="now_news">
+                        <template v-for="item in news">
 
-                        <li><a href="/upload/news/2016-10-25_10-42.html" target="_blank">2016年届计算机协会第一次干事动员大会 | 2016-10-25</a></li>
-                        <li><a href="/#" target="_blank">关于今年协会入会会费缴费时间地点及要带的其它物品通知 | 2016-10-24</a></li>
-                        <li><a href="/#" target="_blank">协会干事面试名单公布通知 | 2016-10-24</a></li>
-                        <li><a href="/#" target="_blank">协会干事面试时间地点通知 | 2016-10-24</a></li>
-                        <li><a href="/#" target="_blank">关于协会2016年届招新事宜安排公告 | 2016-10-24</a></li>
+                        <li><a v-bind:href="item.src" target="_blank">{{item.title}} | {{item.releaseTime}}</a></li>
 
+                        </template>
                     </ul>
 
                 </div>
@@ -156,5 +157,40 @@
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/bower_components/smooth-scroll/dist/js/smooth-scroll.min.js"></script>
     <script src="/assets/js/index.js"></script>
+    <script>
+        var news = new Vue({
+            el : "#now_news",
+            data:{
+                news :[
+
+                ]
+            },
+            methods :{
+                getNews : function () {
+                    $.get("/front/article/getNews?limit=5",function (res,status) {
+                        for (obj of res){
+                            obj.releaseTime = news.$options.methods.timestampToTime(obj.releaseTime)
+                            obj['src']      = "/showarticle?id="+obj.id;
+                        }
+                        news.news = res
+                    })
+                },
+                timestampToTime : (timestamp)=>{
+                    var date = new Date(timestamp);
+                    Y = date.getFullYear() + '-';
+                    M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                    D = date.getDate() + ' ';
+                    h = date.getHours() + ':';
+                    m = date.getMinutes() + ':';
+                    s = date.getSeconds();
+                    return Y+M+D+h+m+s;
+                },
+                doHref : (id)=>{
+
+                }
+            }
+        })
+        news.getNews();
+    </script>
 </body>
 </html>

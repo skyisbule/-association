@@ -15,13 +15,13 @@
     <link href="/admin/css/main.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="layui-layout layui-layout-admin">
+    <div class="layui-layout layui-layout-admin" id="all-info">
         <!--顶部-->
         <div class="layui-header">
             <div class="ht-console">
                 <div class="ht-user">
                     <img src="/admin/images/Logo_40.png" />
-                    <a class="ht-user-name">超级管理员</a>
+                    <a class="ht-user-name">{{userInfo.nick_name}}你的职位是：{{userInfo.work}}</a>
                 </div>
             </div>
             <span class="sys-title">后台管理系统</span>
@@ -213,5 +213,81 @@
             base: '/admin/js/'
         }).use('main');
     </script>
+
+    <script>
+        function getDepName(id){
+            switch(id){
+                case 1:
+                    return "主席团";break;
+                case 2:
+                    return "开发部";break;
+                case 3:
+                    return "维修部";break;
+                case 4:
+                    return "技术部";break;
+                case 5:
+                    return "产品部";break;
+                case 6:
+                    return "办公室";break;
+                case 7:
+                    return "策划部";break;
+                case 8:
+                    return "宣传部";break;
+                case 9:
+                    return "外联部";break;
+                default :
+                    return "";
+            }
+        }
+        function getWorkName(id) {
+            switch (id) {
+                case "1":
+                    return "会长";
+                    break;
+                case "2":
+                    return "副会长";
+                    break;
+                case "3":
+                    return "部长";
+                    break;
+                case "4":
+                    return "副部长";
+                    break;
+                case "5":
+                    return "干事";
+                    break;
+
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.14/dist/vue.js"></script>
+    <script src="/js/getCookie.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+        var indexApp = new Vue({
+            el:'#all-info',
+            data :{
+                userInfo :{nickName : "游客"},
+            },
+            methods :{
+                getNowUser : function () {
+                    $.get("/api/user/get-now-user",function (res,status) {
+                        var totalWork     = indexApp.$options.methods.getUserWork(res)
+                        res['work']       = totalWork
+                        indexApp.userInfo = res
+                    })
+                },
+                getUserWork : function (res) {
+                    var user     = res
+                    var depName  = getDepName(user.bm_id)
+                    var workName = getWorkName(user.works)
+                    return indexApp.userInfo['work']=depName+'|'+workName;
+                }
+            },
+        })
+        indexApp.getNowUser();
+    </script>
+
+
 </body>
 </html>

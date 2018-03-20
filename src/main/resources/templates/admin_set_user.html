@@ -5,6 +5,59 @@
     <title>set user</title>
 </head>
 <body>
-
+<h1>添加已有用户到部门</h1>
+<form action="/api/bumen/add-user-to-bumen" method="post">
+    <p>部门名：
+        <select name="bmId">
+        <option value="1">主席团</option>
+        <option value="2">开发部</option>
+        <option value="3">维修部</option>
+        <option value="4">技术部</option>
+        <option value="5">产品部</option>
+        <option value="6">办公室</option>
+        <option value="7">策划部</option>
+        <option value="8">宣传部</option>
+        <option value="9">外联部</option>
+    </select>
+    </p>
+    <p>用户的id<input name="userId" type="text" /></p>
+    <p>职位：
+    <select name="works">
+        <option value="1">会长</option>
+        <option value="2">副会长</option>
+        <option value="3">部长</option>
+        <option value="4">副部长</option>
+        <option value="5">干事</option>
+    </select>
+    </p>
+    <input type="submit">
+</form>
+<h1>修改已有人的部门and工作</h1>
+<form action="/api/bumen/update-user-to-bumen" method="post">
+    <p>部门名：
+        <select name="bmId">
+            <option value="1">主席团</option>
+            <option value="2">开发部</option>
+            <option value="3">维修部</option>
+            <option value="4">技术部</option>
+            <option value="5">产品部</option>
+            <option value="6">办公室</option>
+            <option value="7">策划部</option>
+            <option value="8">宣传部</option>
+            <option value="9">外联部</option>
+        </select>
+    </p>
+    <p>用户的id<input name="userId" type="text" /></p>
+    <p>职位：
+        <select name="works">
+            <option value="1">会长</option>
+            <option value="2">副会长</option>
+            <option value="3">部长</option>
+            <option value="4">副部长</option>
+            <option value="5">干事</option>
+        </select>
+    </p>
+    <input type="submit">
+</form>
 </body>
 </html>

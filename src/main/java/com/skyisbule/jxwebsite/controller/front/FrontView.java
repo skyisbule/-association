@@ -1,7 +1,6 @@
 package com.skyisbule.jxwebsite.controller.front;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
